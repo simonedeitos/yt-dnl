@@ -15,223 +15,255 @@ namespace YouTubeDownloader
 
         private void InitializeComponent()
         {
-            this.grpInput = new System.Windows.Forms.GroupBox();
-            this.btnBrowseTxt = new System.Windows.Forms.Button();
-            this.txtFilePath = new System.Windows.Forms.TextBox();
-            this.lblFilePath = new System.Windows.Forms.Label();
-            this.btnBrowseOutput = new System.Windows.Forms.Button();
-            this.txtOutputPath = new System.Windows.Forms.TextBox();
-            this.lblOutputPath = new System.Windows.Forms.Label();
-            this.lblSampleRate = new System.Windows.Forms.Label();
-            this.cmbSampleRate = new System.Windows.Forms.ComboBox();
-            this.lblBitrate = new System.Windows.Forms.Label();
-            this.cmbBitrate = new System.Windows.Forms.ComboBox();
-            this.chkCleanTitle = new System.Windows.Forms.CheckBox();
-            this.btnDownload = new System.Windows.Forms.Button();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.grpLog = new System.Windows.Forms.GroupBox();
-            this.txtLog = new System.Windows.Forms.RichTextBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.grpInput.SuspendLayout();
-            this.grpLog.SuspendLayout();
-            this.SuspendLayout();
-
-            // ── lblTitle ──────────────────────────────────────────────────────
-            this.lblTitle.AutoSize = false;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(30, 30, 120);
-            this.lblTitle.Location = new System.Drawing.Point(12, 12);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(760, 36);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🎬 YouTube Bulk Downloader";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
-            // ── grpInput ──────────────────────────────────────────────────────
-            this.grpInput.Controls.Add(this.lblFilePath);
-            this.grpInput.Controls.Add(this.txtFilePath);
-            this.grpInput.Controls.Add(this.btnBrowseTxt);
-            this.grpInput.Controls.Add(this.lblOutputPath);
-            this.grpInput.Controls.Add(this.txtOutputPath);
-            this.grpInput.Controls.Add(this.btnBrowseOutput);
-            this.grpInput.Controls.Add(this.lblSampleRate);
-            this.grpInput.Controls.Add(this.cmbSampleRate);
-            this.grpInput.Controls.Add(this.lblBitrate);
-            this.grpInput.Controls.Add(this.cmbBitrate);
-            this.grpInput.Controls.Add(this.chkCleanTitle);
-            this.grpInput.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.grpInput.Location = new System.Drawing.Point(12, 55);
-            this.grpInput.Name = "grpInput";
-            this.grpInput.Size = new System.Drawing.Size(760, 185);
-            this.grpInput.TabIndex = 1;
-            this.grpInput.TabStop = false;
-            this.grpInput.Text = "Impostazioni";
-
-            // ── lblFilePath ───────────────────────────────────────────────────
-            this.lblFilePath.AutoSize = true;
-            this.lblFilePath.Location = new System.Drawing.Point(10, 28);
-            this.lblFilePath.Name = "lblFilePath";
-            this.lblFilePath.Size = new System.Drawing.Size(120, 15);
-            this.lblFilePath.TabIndex = 0;
-            this.lblFilePath.Text = "File TXT con gli URL:";
-
-            // ── txtFilePath ───────────────────────────────────────────────────
-            this.txtFilePath.Location = new System.Drawing.Point(160, 25);
-            this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(490, 23);
-            this.txtFilePath.TabIndex = 1;
-            this.txtFilePath.PlaceholderText = "Seleziona il file .txt contenente un URL per ogni riga...";
-
-            // ── btnBrowseTxt ──────────────────────────────────────────────────
-            this.btnBrowseTxt.Location = new System.Drawing.Point(660, 23);
-            this.btnBrowseTxt.Name = "btnBrowseTxt";
-            this.btnBrowseTxt.Size = new System.Drawing.Size(88, 27);
-            this.btnBrowseTxt.TabIndex = 2;
-            this.btnBrowseTxt.Text = "📂 Sfoglia";
-            this.btnBrowseTxt.UseVisualStyleBackColor = true;
-            this.btnBrowseTxt.Click += new System.EventHandler(this.btnBrowseTxt_Click);
-
-            // ── lblOutputPath ─────────────────────────────────────────────────
-            this.lblOutputPath.AutoSize = true;
-            this.lblOutputPath.Location = new System.Drawing.Point(10, 70);
-            this.lblOutputPath.Name = "lblOutputPath";
-            this.lblOutputPath.Size = new System.Drawing.Size(120, 15);
-            this.lblOutputPath.TabIndex = 3;
-            this.lblOutputPath.Text = "Cartella di salvataggio:";
-
-            // ── txtOutputPath ─────────────────────────────────────────────────
-            this.txtOutputPath.Location = new System.Drawing.Point(160, 67);
-            this.txtOutputPath.Name = "txtOutputPath";
-            this.txtOutputPath.Size = new System.Drawing.Size(490, 23);
-            this.txtOutputPath.TabIndex = 4;
-            this.txtOutputPath.PlaceholderText = "Seleziona la cartella dove salvare i video...";
-
-            // ── btnBrowseOutput ───────────────────────────────────────────────
-            this.btnBrowseOutput.Location = new System.Drawing.Point(660, 65);
-            this.btnBrowseOutput.Name = "btnBrowseOutput";
-            this.btnBrowseOutput.Size = new System.Drawing.Size(88, 27);
-            this.btnBrowseOutput.TabIndex = 5;
-            this.btnBrowseOutput.Text = "📂 Sfoglia";
-            this.btnBrowseOutput.UseVisualStyleBackColor = true;
-            this.btnBrowseOutput.Click += new System.EventHandler(this.btnBrowseOutput_Click);
-
-            // ── lblSampleRate ─────────────────────────────────────────────────
-            this.lblSampleRate.AutoSize = true;
-            this.lblSampleRate.Location = new System.Drawing.Point(10, 112);
-            this.lblSampleRate.Name = "lblSampleRate";
-            this.lblSampleRate.Size = new System.Drawing.Size(120, 15);
-            this.lblSampleRate.TabIndex = 6;
-            this.lblSampleRate.Text = "Sample rate audio:";
-
-            // ── cmbSampleRate ─────────────────────────────────────────────────
-            this.cmbSampleRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSampleRate.Items.AddRange(new object[] { "44100", "48000" });
-            this.cmbSampleRate.Location = new System.Drawing.Point(160, 109);
-            this.cmbSampleRate.Name = "cmbSampleRate";
-            this.cmbSampleRate.Size = new System.Drawing.Size(120, 23);
-            this.cmbSampleRate.TabIndex = 7;
-
-            // ── lblBitrate ────────────────────────────────────────────────────
-            this.lblBitrate.AutoSize = true;
-            this.lblBitrate.Location = new System.Drawing.Point(320, 112);
-            this.lblBitrate.Name = "lblBitrate";
-            this.lblBitrate.Size = new System.Drawing.Size(100, 15);
-            this.lblBitrate.TabIndex = 8;
-            this.lblBitrate.Text = "Bitrate audio:";
-
-            // ── cmbBitrate ────────────────────────────────────────────────────
-            this.cmbBitrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBitrate.Items.AddRange(new object[] { "128", "160", "192" });
-            this.cmbBitrate.Location = new System.Drawing.Point(430, 109);
-            this.cmbBitrate.Name = "cmbBitrate";
-            this.cmbBitrate.Size = new System.Drawing.Size(120, 23);
-            this.cmbBitrate.TabIndex = 9;
-
-            // ── chkCleanTitle ─────────────────────────────────────────────────
-            this.chkCleanTitle.AutoSize = true;
-            this.chkCleanTitle.Location = new System.Drawing.Point(10, 145);
-            this.chkCleanTitle.Name = "chkCleanTitle";
-            this.chkCleanTitle.Size = new System.Drawing.Size(350, 19);
-            this.chkCleanTitle.TabIndex = 10;
-            this.chkCleanTitle.Text = "Rimuovi dal titolo le parentesi con Official/Video";
-            this.chkCleanTitle.UseVisualStyleBackColor = true;
-
-            // ── btnDownload ───────────────────────────────────────────────────
-            this.btnDownload.BackColor = System.Drawing.Color.FromArgb(0, 120, 215);
-            this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDownload.FlatAppearance.BorderSize = 0;
-            this.btnDownload.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnDownload.ForeColor = System.Drawing.Color.White;
-            this.btnDownload.Location = new System.Drawing.Point(12, 250);
-            this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(220, 40);
-            this.btnDownload.TabIndex = 2;
-            this.btnDownload.Text = "▶  Avvia Download";
-            this.btnDownload.UseVisualStyleBackColor = false;
-            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-
-            // ── progressBar ───────────────────────────────────────────────────
-            this.progressBar.Location = new System.Drawing.Point(245, 258);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(420, 24);
-            this.progressBar.TabIndex = 3;
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-
-            // ── lblStatus ─────────────────────────────────────────────────────
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
-            this.lblStatus.ForeColor = System.Drawing.Color.Gray;
-            this.lblStatus.Location = new System.Drawing.Point(672, 263);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(40, 15);
-            this.lblStatus.TabIndex = 4;
-            this.lblStatus.Text = "Pronto";
-
-            // ── grpLog ────────────────────────────────────────────────────────
-            this.grpLog.Controls.Add(this.txtLog);
-            this.grpLog.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.grpLog.Location = new System.Drawing.Point(12, 300);
-            this.grpLog.Name = "grpLog";
-            this.grpLog.Size = new System.Drawing.Size(760, 313);
-            this.grpLog.TabIndex = 5;
-            this.grpLog.TabStop = false;
-            this.grpLog.Text = "Log di output";
-
-            // ── txtLog ────────────────────────────────────────────────────────
-            this.txtLog.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
-            this.txtLog.ForeColor = System.Drawing.Color.LimeGreen;
-            this.txtLog.Font = new System.Drawing.Font("Consolas", 9F);
-            this.txtLog.Location = new System.Drawing.Point(8, 22);
-            this.txtLog.Name = "txtLog";
-            this.txtLog.ReadOnly = true;
-            this.txtLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(744, 283);
-            this.txtLog.TabIndex = 0;
-            this.txtLog.Text = "";
-
-            // ── Form1 ─────────────────────────────────────────────────────────
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(784, 626);
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.grpInput);
-            this.Controls.Add(this.btnDownload);
-            this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.grpLog);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "YouTube Bulk Downloader";
-            this.grpInput.ResumeLayout(false);
-            this.grpInput.PerformLayout();
-            this.grpLog.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            grpInput = new GroupBox();
+            lblFilePath = new Label();
+            txtFilePath = new TextBox();
+            btnBrowseTxt = new Button();
+            lblOutputPath = new Label();
+            txtOutputPath = new TextBox();
+            btnBrowseOutput = new Button();
+            lblSampleRate = new Label();
+            cmbSampleRate = new ComboBox();
+            lblBitrate = new Label();
+            cmbBitrate = new ComboBox();
+            chkCleanTitle = new CheckBox();
+            btnDownload = new Button();
+            progressBar = new ProgressBar();
+            lblStatus = new Label();
+            grpLog = new GroupBox();
+            txtLog = new RichTextBox();
+            lblTitle = new Label();
+            label1 = new Label();
+            grpInput.SuspendLayout();
+            grpLog.SuspendLayout();
+            SuspendLayout();
+            // 
+            // grpInput
+            // 
+            grpInput.Controls.Add(lblFilePath);
+            grpInput.Controls.Add(txtFilePath);
+            grpInput.Controls.Add(btnBrowseTxt);
+            grpInput.Controls.Add(lblOutputPath);
+            grpInput.Controls.Add(txtOutputPath);
+            grpInput.Controls.Add(btnBrowseOutput);
+            grpInput.Controls.Add(lblSampleRate);
+            grpInput.Controls.Add(cmbSampleRate);
+            grpInput.Controls.Add(lblBitrate);
+            grpInput.Controls.Add(cmbBitrate);
+            grpInput.Controls.Add(chkCleanTitle);
+            grpInput.Font = new Font("Segoe UI", 9F);
+            grpInput.Location = new Point(12, 55);
+            grpInput.Name = "grpInput";
+            grpInput.Size = new Size(760, 185);
+            grpInput.TabIndex = 1;
+            grpInput.TabStop = false;
+            grpInput.Text = "Impostazioni";
+            // 
+            // lblFilePath
+            // 
+            lblFilePath.AutoSize = true;
+            lblFilePath.Location = new Point(10, 28);
+            lblFilePath.Name = "lblFilePath";
+            lblFilePath.Size = new Size(113, 15);
+            lblFilePath.TabIndex = 0;
+            lblFilePath.Text = "File TXT con gli URL:";
+            // 
+            // txtFilePath
+            // 
+            txtFilePath.Location = new Point(160, 25);
+            txtFilePath.Name = "txtFilePath";
+            txtFilePath.PlaceholderText = "Seleziona il file .txt contenente un URL per ogni riga...";
+            txtFilePath.Size = new Size(490, 23);
+            txtFilePath.TabIndex = 1;
+            // 
+            // btnBrowseTxt
+            // 
+            btnBrowseTxt.Location = new Point(660, 23);
+            btnBrowseTxt.Name = "btnBrowseTxt";
+            btnBrowseTxt.Size = new Size(88, 27);
+            btnBrowseTxt.TabIndex = 2;
+            btnBrowseTxt.Text = "📂 Sfoglia";
+            btnBrowseTxt.UseVisualStyleBackColor = true;
+            btnBrowseTxt.Click += btnBrowseTxt_Click;
+            // 
+            // lblOutputPath
+            // 
+            lblOutputPath.AutoSize = true;
+            lblOutputPath.Location = new Point(10, 70);
+            lblOutputPath.Name = "lblOutputPath";
+            lblOutputPath.Size = new Size(126, 15);
+            lblOutputPath.TabIndex = 3;
+            lblOutputPath.Text = "Cartella di salvataggio:";
+            // 
+            // txtOutputPath
+            // 
+            txtOutputPath.Location = new Point(160, 67);
+            txtOutputPath.Name = "txtOutputPath";
+            txtOutputPath.PlaceholderText = "Seleziona la cartella dove salvare i video...";
+            txtOutputPath.Size = new Size(490, 23);
+            txtOutputPath.TabIndex = 4;
+            // 
+            // btnBrowseOutput
+            // 
+            btnBrowseOutput.Location = new Point(660, 65);
+            btnBrowseOutput.Name = "btnBrowseOutput";
+            btnBrowseOutput.Size = new Size(88, 27);
+            btnBrowseOutput.TabIndex = 5;
+            btnBrowseOutput.Text = "📂 Sfoglia";
+            btnBrowseOutput.UseVisualStyleBackColor = true;
+            btnBrowseOutput.Click += btnBrowseOutput_Click;
+            // 
+            // lblSampleRate
+            // 
+            lblSampleRate.AutoSize = true;
+            lblSampleRate.Location = new Point(10, 112);
+            lblSampleRate.Name = "lblSampleRate";
+            lblSampleRate.Size = new Size(105, 15);
+            lblSampleRate.TabIndex = 6;
+            lblSampleRate.Text = "Sample rate audio:";
+            // 
+            // cmbSampleRate
+            // 
+            cmbSampleRate.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSampleRate.Items.AddRange(new object[] { "44100", "48000" });
+            cmbSampleRate.Location = new Point(160, 109);
+            cmbSampleRate.Name = "cmbSampleRate";
+            cmbSampleRate.Size = new Size(120, 23);
+            cmbSampleRate.TabIndex = 7;
+            // 
+            // lblBitrate
+            // 
+            lblBitrate.AutoSize = true;
+            lblBitrate.Location = new Point(320, 112);
+            lblBitrate.Name = "lblBitrate";
+            lblBitrate.Size = new Size(77, 15);
+            lblBitrate.TabIndex = 8;
+            lblBitrate.Text = "Bitrate audio:";
+            // 
+            // cmbBitrate
+            // 
+            cmbBitrate.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBitrate.Items.AddRange(new object[] { "128", "160", "192" });
+            cmbBitrate.Location = new Point(430, 109);
+            cmbBitrate.Name = "cmbBitrate";
+            cmbBitrate.Size = new Size(120, 23);
+            cmbBitrate.TabIndex = 9;
+            // 
+            // chkCleanTitle
+            // 
+            chkCleanTitle.AutoSize = true;
+            chkCleanTitle.Location = new Point(10, 145);
+            chkCleanTitle.Name = "chkCleanTitle";
+            chkCleanTitle.Size = new Size(282, 19);
+            chkCleanTitle.TabIndex = 10;
+            chkCleanTitle.Text = "Rimuovi dal titolo le parentesi con Official/Video";
+            chkCleanTitle.UseVisualStyleBackColor = true;
+            // 
+            // btnDownload
+            // 
+            btnDownload.BackColor = Color.FromArgb(0, 120, 215);
+            btnDownload.FlatAppearance.BorderSize = 0;
+            btnDownload.FlatStyle = FlatStyle.Flat;
+            btnDownload.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDownload.ForeColor = Color.White;
+            btnDownload.Location = new Point(12, 250);
+            btnDownload.Name = "btnDownload";
+            btnDownload.Size = new Size(220, 40);
+            btnDownload.TabIndex = 2;
+            btnDownload.Text = "▶  Avvia Download";
+            btnDownload.UseVisualStyleBackColor = false;
+            btnDownload.Click += btnDownload_Click;
+            // 
+            // progressBar
+            // 
+            progressBar.Location = new Point(245, 258);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(420, 24);
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.TabIndex = 3;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            lblStatus.ForeColor = Color.Gray;
+            lblStatus.Location = new Point(672, 263);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(41, 15);
+            lblStatus.TabIndex = 4;
+            lblStatus.Text = "Pronto";
+            // 
+            // grpLog
+            // 
+            grpLog.Controls.Add(txtLog);
+            grpLog.Font = new Font("Segoe UI", 9F);
+            grpLog.Location = new Point(12, 300);
+            grpLog.Name = "grpLog";
+            grpLog.Size = new Size(760, 313);
+            grpLog.TabIndex = 5;
+            grpLog.TabStop = false;
+            grpLog.Text = "Log di output";
+            // 
+            // txtLog
+            // 
+            txtLog.BackColor = Color.FromArgb(20, 20, 20);
+            txtLog.Font = new Font("Consolas", 9F);
+            txtLog.ForeColor = Color.LimeGreen;
+            txtLog.Location = new Point(8, 22);
+            txtLog.Name = "txtLog";
+            txtLog.ReadOnly = true;
+            txtLog.ScrollBars = RichTextBoxScrollBars.Vertical;
+            txtLog.Size = new Size(744, 283);
+            txtLog.TabIndex = 0;
+            txtLog.Text = "";
+            // 
+            // lblTitle
+            // 
+            lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 120);
+            lblTitle.Location = new Point(12, 12);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(760, 36);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "🎬 High Quality YouTube Video Downloader";
+            lblTitle.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 8.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.Location = new Point(652, 612);
+            label1.Name = "label1";
+            label1.Size = new Size(129, 13);
+            label1.TabIndex = 6;
+            label1.Text = "Creato da Simone Dei Tos";
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(784, 627);
+            Controls.Add(label1);
+            Controls.Add(lblTitle);
+            Controls.Add(grpInput);
+            Controls.Add(btnDownload);
+            Controls.Add(progressBar);
+            Controls.Add(lblStatus);
+            Controls.Add(grpLog);
+            Font = new Font("Segoe UI", 9F);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "YouTube Downloader";
+            grpInput.ResumeLayout(false);
+            grpInput.PerformLayout();
+            grpLog.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -254,5 +286,6 @@ namespace YouTubeDownloader
         private System.Windows.Forms.Label lblBitrate;
         private System.Windows.Forms.ComboBox cmbBitrate;
         private System.Windows.Forms.CheckBox chkCleanTitle;
+        private Label label1;
     }
 }
