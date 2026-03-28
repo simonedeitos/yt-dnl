@@ -26,6 +26,7 @@ namespace YouTubeDownloader
             this.cmbSampleRate = new System.Windows.Forms.ComboBox();
             this.lblBitrate = new System.Windows.Forms.Label();
             this.cmbBitrate = new System.Windows.Forms.ComboBox();
+            this.chkCleanTitle = new System.Windows.Forms.CheckBox();
             this.btnDownload = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -58,10 +59,11 @@ namespace YouTubeDownloader
             this.grpInput.Controls.Add(this.cmbSampleRate);
             this.grpInput.Controls.Add(this.lblBitrate);
             this.grpInput.Controls.Add(this.cmbBitrate);
+            this.grpInput.Controls.Add(this.chkCleanTitle);
             this.grpInput.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grpInput.Location = new System.Drawing.Point(12, 55);
             this.grpInput.Name = "grpInput";
-            this.grpInput.Size = new System.Drawing.Size(760, 155);
+            this.grpInput.Size = new System.Drawing.Size(760, 185);
             this.grpInput.TabIndex = 1;
             this.grpInput.TabStop = false;
             this.grpInput.Text = "Impostazioni";
@@ -146,13 +148,22 @@ namespace YouTubeDownloader
             this.cmbBitrate.Size = new System.Drawing.Size(120, 23);
             this.cmbBitrate.TabIndex = 9;
 
+            // ── chkCleanTitle ─────────────────────────────────────────────────
+            this.chkCleanTitle.AutoSize = true;
+            this.chkCleanTitle.Location = new System.Drawing.Point(10, 145);
+            this.chkCleanTitle.Name = "chkCleanTitle";
+            this.chkCleanTitle.Size = new System.Drawing.Size(350, 19);
+            this.chkCleanTitle.TabIndex = 10;
+            this.chkCleanTitle.Text = "Rimuovi dal titolo le parentesi con Official/Video";
+            this.chkCleanTitle.UseVisualStyleBackColor = true;
+
             // ── btnDownload ───────────────────────────────────────────────────
             this.btnDownload.BackColor = System.Drawing.Color.FromArgb(0, 120, 215);
             this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDownload.FlatAppearance.BorderSize = 0;
             this.btnDownload.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnDownload.ForeColor = System.Drawing.Color.White;
-            this.btnDownload.Location = new System.Drawing.Point(12, 220);
+            this.btnDownload.Location = new System.Drawing.Point(12, 250);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(220, 40);
             this.btnDownload.TabIndex = 2;
@@ -161,7 +172,7 @@ namespace YouTubeDownloader
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
 
             // ── progressBar ───────────────────────────────────────────────────
-            this.progressBar.Location = new System.Drawing.Point(245, 228);
+            this.progressBar.Location = new System.Drawing.Point(245, 258);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(420, 24);
             this.progressBar.TabIndex = 3;
@@ -171,7 +182,7 @@ namespace YouTubeDownloader
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             this.lblStatus.ForeColor = System.Drawing.Color.Gray;
-            this.lblStatus.Location = new System.Drawing.Point(672, 233);
+            this.lblStatus.Location = new System.Drawing.Point(672, 263);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 15);
             this.lblStatus.TabIndex = 4;
@@ -180,7 +191,7 @@ namespace YouTubeDownloader
             // ── grpLog ────────────────────────────────────────────────────────
             this.grpLog.Controls.Add(this.txtLog);
             this.grpLog.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.grpLog.Location = new System.Drawing.Point(12, 270);
+            this.grpLog.Location = new System.Drawing.Point(12, 300);
             this.grpLog.Name = "grpLog";
             this.grpLog.Size = new System.Drawing.Size(760, 313);
             this.grpLog.TabIndex = 5;
@@ -203,7 +214,7 @@ namespace YouTubeDownloader
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(784, 596);
+            this.ClientSize = new System.Drawing.Size(784, 626);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.grpInput);
             this.Controls.Add(this.btnDownload);
@@ -242,5 +253,6 @@ namespace YouTubeDownloader
         private System.Windows.Forms.ComboBox cmbSampleRate;
         private System.Windows.Forms.Label lblBitrate;
         private System.Windows.Forms.ComboBox cmbBitrate;
+        private System.Windows.Forms.CheckBox chkCleanTitle;
     }
 }

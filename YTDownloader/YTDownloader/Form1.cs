@@ -12,6 +12,7 @@ namespace YouTubeDownloader
     {
         private bool _isDownloading = false;
         private const string RegistryKeyPath = @"SOFTWARE\YTDownloader";
+        private const string OfficialVideoPattern = "(?i)\\s*\\([^)]*(?:official|video)[^)]*\\)";
 
         public Form1()
         {
@@ -35,6 +36,9 @@ namespace YouTubeDownloader
                     string bitrate = key.GetValue("AudioBitrate", "128")?.ToString() ?? "128";
                     int brIndex = cmbBitrate.Items.IndexOf(bitrate);
                     cmbBitrate.SelectedIndex = brIndex >= 0 ? brIndex : 0;
+
+                    string cleanTitle = key.GetValue("CleanTitle", "0")?.ToString() ?? "0";
+                    chkCleanTitle.Checked = cleanTitle == "1";
                 }
                 else
                 {
@@ -52,6 +56,7 @@ namespace YouTubeDownloader
                 key.SetValue("OutputPath", txtOutputPath.Text);
                 key.SetValue("AudioSampleRate", cmbSampleRate.SelectedItem?.ToString() ?? "44100");
                 key.SetValue("AudioBitrate", cmbBitrate.SelectedItem?.ToString() ?? "128");
+                key.SetValue("CleanTitle", chkCleanTitle.Checked ? "1" : "0");
             }
         }
 
@@ -150,6 +155,7 @@ namespace YouTubeDownloader
             string outputPath = txtOutputPath.Text;
             string sampleRate = cmbSampleRate.SelectedItem?.ToString() ?? "44100";
             string bitrate = cmbBitrate.SelectedItem?.ToString() ?? "128";
+            bool cleanTitle = chkCleanTitle.Checked;
             int successCount = 0;
             int errorCount = 0;
 
@@ -159,6 +165,8 @@ namespace YouTubeDownloader
             AppendLog($"📁 Cartella di salvataggio: {outputPath}");
             AppendLog($"🔧 ffmpeg trovato: {ffmpegExe}");
             AppendLog($"🎵 Audio: {sampleRate} Hz, {bitrate} kbps");
+            if (cleanTitle)
+                AppendLog("🏷️ Pulizia titolo attiva (rimozione parentesi Official/Video)");
             AppendLog("");
 
             // Esegui i download in sequenza, uno alla volta
@@ -174,7 +182,7 @@ namespace YouTubeDownloader
                     AppendLog($"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
                     // DownloadVideo è sincrono: blocca finché yt-dlp non termina completamente
-                    bool ok = DownloadVideo(ytDlpPath, url, outputPath, ffmpegDir, sampleRate, bitrate);
+                    bool ok = DownloadVideo(ytDlpPath, url, outputPath, ffmpegDir, sampleRate, bitrate, cleanTitle);
 
                     if (ok)
                         successCount++;
@@ -206,9 +214,13 @@ namespace YouTubeDownloader
         /// Scarica un singolo video e attende il completamento (download + merge).
         /// Restituisce true se il processo termina con exit code 0.
         /// </summary>
-        private bool DownloadVideo(string ytDlpPath, string url, string outputDir, string ffmpegDir, string sampleRate, string bitrate)
+        private bool DownloadVideo(string ytDlpPath, string url, string outputDir, string ffmpegDir, string sampleRate, string bitrate, bool cleanTitle)
         {
             string outputTemplate = Path.Combine(outputDir, "%(title)s.%(ext)s");
+
+            string cleanTitleArg = cleanTitle
+                ? $"--replace-in-metadata \"title\" \"{OfficialVideoPattern}\" \"\" "
+                : "";
 
             // Preferisce mp4+m4a (nativo, no ricodifica).
             // Fallback: qualsiasi formato con ricodifica audio in AAC per garantire
@@ -216,6 +228,7 @@ namespace YouTubeDownloader
             string arguments = string.Format(
     "-f \"bestvideo[vcodec^=avc1][ext=mp4]+bestaudio[ext=m4a]/bestvideo[vcodec^=avc1]+bestaudio/best[ext=mp4]/best\" " +
     "--merge-output-format mp4 " +
+    cleanTitleArg +
     "--postprocessor-args \"ffmpeg:-c:v copy -c:a aac -b:a {3}k -ar {4}\" " +
     "--ffmpeg-location \"{0}\" " +
     "--no-playlist " +
