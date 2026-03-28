@@ -229,10 +229,11 @@ namespace YouTubeDownloader
                                 {
                                     if (!existingFiles.Contains(file))
                                     {
-                                        string dir = Path.GetDirectoryName(file)!;
+                                        string? dir = Path.GetDirectoryName(file);
+                                        if (dir == null) continue;
                                         string name = Path.GetFileNameWithoutExtension(file);
                                         string ext = Path.GetExtension(file);
-                                        string capitalized = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower());
+                                        string capitalized = System.Globalization.CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name.ToLower());
                                         string newPath = Path.Combine(dir, capitalized + ext);
                                         if (file != newPath)
                                         {
