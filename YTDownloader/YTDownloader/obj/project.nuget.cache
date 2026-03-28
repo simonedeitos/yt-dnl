@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "wRLDpTSfmRo=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/yt-dnl/yt-dnl/YTDownloader/YTDownloader/YTDownloader.csproj",
+  "expectedPackageFiles": [
+    "/tmp/codeql-scratch-de411dfd612ee208/dbs/csharp/working/packages/microsoft.netcore.app.ref/10.0.5/microsoft.netcore.app.ref.10.0.5.nupkg.sha512",
+    "/tmp/codeql-scratch-de411dfd612ee208/dbs/csharp/working/packages/microsoft.windowsdesktop.app.ref/10.0.5/microsoft.windowsdesktop.app.ref.10.0.5.nupkg.sha512",
+    "/tmp/codeql-scratch-de411dfd612ee208/dbs/csharp/working/packages/microsoft.aspnetcore.app.ref/10.0.5/microsoft.aspnetcore.app.ref.10.0.5.nupkg.sha512",
+    "/tmp/codeql-scratch-de411dfd612ee208/dbs/csharp/working/packages/microsoft.netcore.app.host.linux-x64/10.0.5/microsoft.netcore.app.host.linux-x64.10.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

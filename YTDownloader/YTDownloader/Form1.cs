@@ -4,16 +4,61 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace YouTubeDownloader
 {
     public partial class Form1 : Form
     {
         private bool _isDownloading = false;
+        private const string RegistryKeyPath = @"SOFTWARE\YTDownloader";
 
         public Form1()
         {
             InitializeComponent();
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            using (RegistryKey? key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
+            {
+                if (key != null)
+                {
+                    txtFilePath.Text = key.GetValue("FilePath", "")?.ToString() ?? "";
+                    txtOutputPath.Text = key.GetValue("OutputPath", "")?.ToString() ?? "";
+
+                    string sampleRate = key.GetValue("AudioSampleRate", "44100")?.ToString() ?? "44100";
+                    int srIndex = cmbSampleRate.Items.IndexOf(sampleRate);
+                    cmbSampleRate.SelectedIndex = srIndex >= 0 ? srIndex : 0;
+
+                    string bitrate = key.GetValue("AudioBitrate", "128")?.ToString() ?? "128";
+                    int brIndex = cmbBitrate.Items.IndexOf(bitrate);
+                    cmbBitrate.SelectedIndex = brIndex >= 0 ? brIndex : 0;
+                }
+                else
+                {
+                    cmbSampleRate.SelectedIndex = 0;
+                    cmbBitrate.SelectedIndex = 0;
+                }
+            }
+        }
+
+        private void SaveSettings()
+        {
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(RegistryKeyPath))
+            {
+                key.SetValue("FilePath", txtFilePath.Text);
+                key.SetValue("OutputPath", txtOutputPath.Text);
+                key.SetValue("AudioSampleRate", cmbSampleRate.SelectedItem?.ToString() ?? "44100");
+                key.SetValue("AudioBitrate", cmbBitrate.SelectedItem?.ToString() ?? "128");
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            SaveSettings();
+            base.OnFormClosing(e);
         }
 
         private void btnBrowseTxt_Click(object sender, EventArgs e)
@@ -103,12 +148,17 @@ namespace YouTubeDownloader
             progressBar.Value = 0;
 
             string outputPath = txtOutputPath.Text;
+            string sampleRate = cmbSampleRate.SelectedItem?.ToString() ?? "44100";
+            string bitrate = cmbBitrate.SelectedItem?.ToString() ?? "128";
             int successCount = 0;
             int errorCount = 0;
+
+            SaveSettings();
 
             AppendLog($"✅ Trovati {urls.Count} link.");
             AppendLog($"📁 Cartella di salvataggio: {outputPath}");
             AppendLog($"🔧 ffmpeg trovato: {ffmpegExe}");
+            AppendLog($"🎵 Audio: {sampleRate} Hz, {bitrate} kbps");
             AppendLog("");
 
             // Esegui i download in sequenza, uno alla volta
@@ -124,7 +174,7 @@ namespace YouTubeDownloader
                     AppendLog($"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
                     // DownloadVideo è sincrono: blocca finché yt-dlp non termina completamente
-                    bool ok = DownloadVideo(ytDlpPath, url, outputPath, ffmpegDir);
+                    bool ok = DownloadVideo(ytDlpPath, url, outputPath, ffmpegDir, sampleRate, bitrate);
 
                     if (ok)
                         successCount++;
@@ -156,7 +206,7 @@ namespace YouTubeDownloader
         /// Scarica un singolo video e attende il completamento (download + merge).
         /// Restituisce true se il processo termina con exit code 0.
         /// </summary>
-        private bool DownloadVideo(string ytDlpPath, string url, string outputDir, string ffmpegDir)
+        private bool DownloadVideo(string ytDlpPath, string url, string outputDir, string ffmpegDir, string sampleRate, string bitrate)
         {
             string outputTemplate = Path.Combine(outputDir, "%(title)s.%(ext)s");
 
@@ -166,7 +216,7 @@ namespace YouTubeDownloader
             string arguments = string.Format(
     "-f \"bestvideo[vcodec^=avc1][ext=mp4]+bestaudio[ext=m4a]/bestvideo[vcodec^=avc1]+bestaudio/best[ext=mp4]/best\" " +
     "--merge-output-format mp4 " +
-    "--postprocessor-args \"ffmpeg:-c:v copy -c:a aac\" " +
+    "--postprocessor-args \"ffmpeg:-c:v copy -c:a aac -b:a {3}k -ar {4}\" " +
     "--ffmpeg-location \"{0}\" " +
     "--no-playlist " +
     "--no-part " +
@@ -174,7 +224,9 @@ namespace YouTubeDownloader
     "\"{2}\"",
     ffmpegDir,
     outputTemplate,
-    url
+    url,
+    bitrate,
+    sampleRate
 );
 
             ProcessStartInfo psi = new ProcessStartInfo
