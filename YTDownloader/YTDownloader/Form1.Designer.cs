@@ -28,6 +28,10 @@ namespace YouTubeDownloader
             lblBitrate = new Label();
             cmbBitrate = new ComboBox();
             chkCleanTitle = new CheckBox();
+            chkCapitalize = new CheckBox();
+            lblMode = new Label();
+            cmbMode = new ComboBox();
+            btnAddLinks = new Button();
             btnDownload = new Button();
             progressBar = new ProgressBar();
             lblStatus = new Label();
@@ -52,10 +56,14 @@ namespace YouTubeDownloader
             grpInput.Controls.Add(lblBitrate);
             grpInput.Controls.Add(cmbBitrate);
             grpInput.Controls.Add(chkCleanTitle);
+            grpInput.Controls.Add(chkCapitalize);
+            grpInput.Controls.Add(lblMode);
+            grpInput.Controls.Add(cmbMode);
+            grpInput.Controls.Add(btnAddLinks);
             grpInput.Font = new Font("Segoe UI", 9F);
             grpInput.Location = new Point(12, 55);
             grpInput.Name = "grpInput";
-            grpInput.Size = new Size(760, 185);
+            grpInput.Size = new Size(760, 220);
             grpInput.TabIndex = 1;
             grpInput.TabStop = false;
             grpInput.Text = "Impostazioni";
@@ -74,18 +82,28 @@ namespace YouTubeDownloader
             txtFilePath.Location = new Point(160, 25);
             txtFilePath.Name = "txtFilePath";
             txtFilePath.PlaceholderText = "Seleziona il file .txt contenente un URL per ogni riga...";
-            txtFilePath.Size = new Size(490, 23);
+            txtFilePath.Size = new Size(390, 23);
             txtFilePath.TabIndex = 1;
             // 
             // btnBrowseTxt
             // 
-            btnBrowseTxt.Location = new Point(660, 23);
+            btnBrowseTxt.Location = new Point(558, 23);
             btnBrowseTxt.Name = "btnBrowseTxt";
             btnBrowseTxt.Size = new Size(88, 27);
             btnBrowseTxt.TabIndex = 2;
             btnBrowseTxt.Text = "📂 Sfoglia";
             btnBrowseTxt.UseVisualStyleBackColor = true;
             btnBrowseTxt.Click += btnBrowseTxt_Click;
+            // 
+            // btnAddLinks
+            // 
+            btnAddLinks.Location = new Point(654, 23);
+            btnAddLinks.Name = "btnAddLinks";
+            btnAddLinks.Size = new Size(94, 27);
+            btnAddLinks.TabIndex = 12;
+            btnAddLinks.Text = "➕ Link";
+            btnAddLinks.UseVisualStyleBackColor = true;
+            btnAddLinks.Click += btnAddLinks_Click;
             // 
             // lblOutputPath
             // 
@@ -114,10 +132,29 @@ namespace YouTubeDownloader
             btnBrowseOutput.UseVisualStyleBackColor = true;
             btnBrowseOutput.Click += btnBrowseOutput_Click;
             // 
+            // lblMode
+            // 
+            lblMode.AutoSize = true;
+            lblMode.Location = new Point(10, 112);
+            lblMode.Name = "lblMode";
+            lblMode.Size = new Size(62, 15);
+            lblMode.TabIndex = 14;
+            lblMode.Text = "Modalità:";
+            // 
+            // cmbMode
+            // 
+            cmbMode.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMode.Items.AddRange(new object[] { "🎬 Video", "🎵 Audio Only" });
+            cmbMode.Location = new Point(160, 109);
+            cmbMode.Name = "cmbMode";
+            cmbMode.Size = new Size(160, 23);
+            cmbMode.TabIndex = 15;
+            cmbMode.SelectedIndexChanged += cmbMode_SelectedIndexChanged;
+            // 
             // lblSampleRate
             // 
             lblSampleRate.AutoSize = true;
-            lblSampleRate.Location = new Point(10, 112);
+            lblSampleRate.Location = new Point(10, 148);
             lblSampleRate.Name = "lblSampleRate";
             lblSampleRate.Size = new Size(105, 15);
             lblSampleRate.TabIndex = 6;
@@ -127,7 +164,7 @@ namespace YouTubeDownloader
             // 
             cmbSampleRate.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSampleRate.Items.AddRange(new object[] { "44100", "48000" });
-            cmbSampleRate.Location = new Point(160, 109);
+            cmbSampleRate.Location = new Point(160, 145);
             cmbSampleRate.Name = "cmbSampleRate";
             cmbSampleRate.Size = new Size(120, 23);
             cmbSampleRate.TabIndex = 7;
@@ -135,7 +172,7 @@ namespace YouTubeDownloader
             // lblBitrate
             // 
             lblBitrate.AutoSize = true;
-            lblBitrate.Location = new Point(320, 112);
+            lblBitrate.Location = new Point(320, 148);
             lblBitrate.Name = "lblBitrate";
             lblBitrate.Size = new Size(77, 15);
             lblBitrate.TabIndex = 8;
@@ -145,7 +182,7 @@ namespace YouTubeDownloader
             // 
             cmbBitrate.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBitrate.Items.AddRange(new object[] { "128", "160", "192" });
-            cmbBitrate.Location = new Point(430, 109);
+            cmbBitrate.Location = new Point(430, 145);
             cmbBitrate.Name = "cmbBitrate";
             cmbBitrate.Size = new Size(120, 23);
             cmbBitrate.TabIndex = 9;
@@ -153,12 +190,22 @@ namespace YouTubeDownloader
             // chkCleanTitle
             // 
             chkCleanTitle.AutoSize = true;
-            chkCleanTitle.Location = new Point(10, 145);
+            chkCleanTitle.Location = new Point(10, 181);
             chkCleanTitle.Name = "chkCleanTitle";
-            chkCleanTitle.Size = new Size(282, 19);
+            chkCleanTitle.Size = new Size(350, 19);
             chkCleanTitle.TabIndex = 10;
-            chkCleanTitle.Text = "Rimuovi dal titolo le parentesi con Official/Video";
+            chkCleanTitle.Text = "Rimuovi dal titolo le parentesi con Official/Video/Lyrics";
             chkCleanTitle.UseVisualStyleBackColor = true;
+            // 
+            // chkCapitalize
+            // 
+            chkCapitalize.AutoSize = true;
+            chkCapitalize.Location = new Point(420, 181);
+            chkCapitalize.Name = "chkCapitalize";
+            chkCapitalize.Size = new Size(160, 19);
+            chkCapitalize.TabIndex = 11;
+            chkCapitalize.Text = "Capitalizza nome file";
+            chkCapitalize.UseVisualStyleBackColor = true;
             // 
             // btnDownload
             // 
@@ -167,7 +214,7 @@ namespace YouTubeDownloader
             btnDownload.FlatStyle = FlatStyle.Flat;
             btnDownload.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDownload.ForeColor = Color.White;
-            btnDownload.Location = new Point(12, 250);
+            btnDownload.Location = new Point(12, 285);
             btnDownload.Name = "btnDownload";
             btnDownload.Size = new Size(220, 40);
             btnDownload.TabIndex = 2;
@@ -177,7 +224,7 @@ namespace YouTubeDownloader
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(245, 258);
+            progressBar.Location = new Point(245, 293);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(420, 24);
             progressBar.Style = ProgressBarStyle.Continuous;
@@ -188,7 +235,7 @@ namespace YouTubeDownloader
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             lblStatus.ForeColor = Color.Gray;
-            lblStatus.Location = new Point(672, 263);
+            lblStatus.Location = new Point(672, 298);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(41, 15);
             lblStatus.TabIndex = 4;
@@ -198,7 +245,7 @@ namespace YouTubeDownloader
             // 
             grpLog.Controls.Add(txtLog);
             grpLog.Font = new Font("Segoe UI", 9F);
-            grpLog.Location = new Point(12, 300);
+            grpLog.Location = new Point(12, 335);
             grpLog.Name = "grpLog";
             grpLog.Size = new Size(760, 313);
             grpLog.TabIndex = 5;
@@ -233,7 +280,7 @@ namespace YouTubeDownloader
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 8.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(652, 612);
+            label1.Location = new Point(652, 647);
             label1.Name = "label1";
             label1.Size = new Size(129, 13);
             label1.TabIndex = 6;
@@ -244,7 +291,7 @@ namespace YouTubeDownloader
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(784, 627);
+            ClientSize = new Size(784, 662);
             Controls.Add(label1);
             Controls.Add(lblTitle);
             Controls.Add(grpInput);
@@ -286,6 +333,10 @@ namespace YouTubeDownloader
         private System.Windows.Forms.Label lblBitrate;
         private System.Windows.Forms.ComboBox cmbBitrate;
         private System.Windows.Forms.CheckBox chkCleanTitle;
+        private System.Windows.Forms.CheckBox chkCapitalize;
+        private System.Windows.Forms.Label lblMode;
+        private System.Windows.Forms.ComboBox cmbMode;
+        private System.Windows.Forms.Button btnAddLinks;
         private Label label1;
     }
 }
