@@ -211,7 +211,7 @@ namespace YouTubeDownloader
                     // Cattura file esistenti prima del download per la capitalizzazione
                     HashSet<string>? existingFiles = null;
                     if (capitalize)
-                        existingFiles = new HashSet<string>(Directory.GetFiles(outputPath));
+                        existingFiles = new HashSet<string>(Directory.GetFiles(outputPath), StringComparer.OrdinalIgnoreCase);
 
                     // DownloadVideo è sincrono: blocca finché yt-dlp non termina completamente
                     bool ok = DownloadVideo(ytDlpPath, url, outputPath, ffmpegDir, sampleRate, bitrate, cleanTitle, audioOnly);
@@ -237,9 +237,30 @@ namespace YouTubeDownloader
                                         string newPath = Path.Combine(dir, capitalized + ext);
                                         if (file != newPath)
                                         {
-                                            if (File.Exists(newPath))
-                                                File.Delete(newPath);
-                                            File.Move(file, newPath);
+                                            // On case-insensitive filesystems (Windows), source and dest may be
+                                            // the same physical file when only the case differs.
+                                            // Deleting "newPath" before moving would erase the source file.
+                                            // Use a two-step rename through a temp name in that case.
+                                            if (string.Equals(file, newPath, StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                string tempPath = Path.Combine(dir, "_tmp_" + Guid.NewGuid().ToString("N") + ext);
+                                                File.Move(file, tempPath);
+                                                try
+                                                {
+                                                    File.Move(tempPath, newPath);
+                                                }
+                                                catch
+                                                {
+                                                    File.Move(tempPath, file); // ripristina il nome originale
+                                                    throw;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (File.Exists(newPath))
+                                                    File.Delete(newPath);
+                                                File.Move(file, newPath);
+                                            }
                                             AppendLog($"  🔠 Rinominato: {Path.GetFileName(newPath)}");
                                         }
                                     }
