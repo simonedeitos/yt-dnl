@@ -434,6 +434,7 @@ namespace YouTubeDownloader
                 TextBox txtLinks = new TextBox
                 {
                     Multiline = true,
+                    AcceptsReturn = true,
                     ScrollBars = ScrollBars.Vertical,
                     Location = new Point(10, 35),
                     Size = new Size(475, 280),
